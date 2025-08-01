@@ -2,7 +2,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const userRouter = require("./routes/user.routes"); 
-const authRouter = require("./routes/auth.route"); 
+const authRouter = require("./routes/auth.route");
+require("dotenv").config();
 mongoose.connect("mongodb://localhost:27017/BRICKSHUB", {
   useNewUrlParser: true,
   useUnifiedTopology: true,

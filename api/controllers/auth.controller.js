@@ -1,11 +1,11 @@
 const bcryptjs = require("bcryptjs");
 const User = require("../models/user.model"); 
-const { errorHandler } = require("../utils/error.js"); 
+const { errorHandler } = require("../utils/error.js");
+const jwt = require("jsonwebtoken"); 
 
-// SIGNUP CONTROLLER
 const signup = async (req, res, next) => {
   const { username, email, password } = req.body;
-
+                                                                                                                                     
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) return next(errorHandler(400, "User already exists"));
@@ -21,7 +21,7 @@ const signup = async (req, res, next) => {
   }
 };
 
-// SIGNIN CONTROLLER
+
 const signin = async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -33,7 +33,7 @@ const signin = async (req, res, next) => {
     if (!isPasswordValid) return next(errorHandler(400, "Invalid password"));
 
     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET); 
-
+    
     res
       .cookie("access_token", token, { httpOnly: true })
       .status(200)
