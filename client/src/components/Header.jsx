@@ -1,68 +1,95 @@
-import React from 'react'
-import { FaSearch } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { FaSearch } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Header = () => {
+  const { currentUser } = useSelector((state) => state.user);
   return (
-    <header className="bg-slate-200 shadow-md text-gray-600 body-font">
-      <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-        <Link
-          to="/"
-          className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            className="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
-            viewBox="0 0 24 24"
-          >
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-          </svg>
-          <span className="ml-3 text-xl">Tailblocks</span>
+
+    <header className="bg-gray-900 shadow-md sticky top-0 z-50">
+      <div className="flex flex-wrap justify-between items-center max-w-6xl mx-auto p-4 text-white">
+       
+        <Link to="/">
+          <h1 className="font-bold text-xl sm:text-2xl">
+            <span className="text-indigo-400">BRICKSHUB</span>{' '}
+            <span className="text-slate-00 text-sm sm:text-base">
+              Make coding fun
+            </span>
+          </h1>
         </Link>
 
-        <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
-          <a
-            className="text-slate-700 mr-5 hover:underline text-gray-900"
-            href="/about"
-          >
-            About
-          </a>
-          <a
-            className="text-slate-700 mr-5 hover:underline text-gray-900"
-            href="/profile"
-          >
-            Profile
-          </a>
-          <a
-            className="mr-5 hover:underline text-gray-900"
-            href="/signup"
-          >
-            Sign Up
-          </a>
-          <a
-            className="mr-5 hover:underline text-gray-900"
-            href="/signin"
-          >
-            Sign In
-          </a>
-        </nav>
-
-        <form className="bg-slate-100 p-3 rounded-lg flex items-center">
+        
+        <form className="flex items-center bg-gray-700 p-2 rounded-md mt-3 sm:mt-0">
           <input
             type="text"
-            placeholder="Search"
-            className="bg-gray-100 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+            placeholder="Search..."
+            className="p-2 rounded-md bg-gray-800 text-white w-24 sm:w-48 placeholder-slate-400 focus:outline-none"
           />
-          <FaSearch className="text-slate-600 text-gray-600 w-5 h-5 ml-2 cursor-pointer" />
+          <FaSearch className="ml-2 text-slate-400 hover:text-white cursor-pointer" />
         </form>
+
+      
+        <ul className="flex gap-4 mt-3 sm:mt-0 text-sm sm:text-base">
+          <li>
+            <Link
+              to="/"
+              className="text-slate-400 hover:text-white transition duration-150"
+            >
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/about"
+              className="text-slate-400 hover:text-white transition duration-150"
+            >
+              About
+            </Link>
+          </li>
+          
+           
+           <li>
+            <Link
+              to="/signup"
+              className="text-slate-400 hover:text-white transition duration-150"
+            >
+            SIGNUP
+            </Link>
+          </li>
+
+          <li>
+  {currentUser ? (
+    <Link to="/profile">
+      <img
+        src={currentUser.avatar || "https://www.w3schools.com/howto/img_avatar.png"}
+        alt="avatar"
+        className="rounded-full h-7 w-7 object-cover"
+      />
+    </Link>
+  ) : (
+    <Link
+      to="/signin"
+      className="text-slate-400 hover:text-white transition duration-150"
+    >
+      Sign In
+    </Link>
+  )}
+</li>
+
+          
+          {/* <li>
+            <Link
+              to="/signin"
+              className="text-slate-400 hover:text-white transition duration-150"
+            >
+              Sign In
+            </Link>
+          </li> */}
+        </ul>
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

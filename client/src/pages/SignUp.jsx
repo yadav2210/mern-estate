@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import{ useNavigate } from 'react-router-dom';
 import {set} from 'mongoose';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import OAuth from '../components/oAuth';
+
 const SignUp = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -79,6 +82,9 @@ const navigate = useNavigate();
           {loading ? "Loading..." : "Sign Up"}
         
         </button>
+        <OAuth />
+
+        
       </form>
 
       <div className="flex gap-2 mt-5">
